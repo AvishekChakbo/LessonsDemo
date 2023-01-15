@@ -31,6 +31,7 @@ struct Lessons: View {
                     }
                 }
                 .listRowBackground(Color.black)
+                .accessibility(identifier: "LesssonList")
             }
             .background(.black)
             .listRowSeparatorTint(Color.clear)
