@@ -31,7 +31,7 @@ struct Lessons: View {
                     }
                 }
                 .listRowBackground(Color.black)
-                .accessibility(identifier: "LesssonList")
+                .accessibility(identifier: "LesssonCell")
             }
             .background(.black)
             .listRowSeparatorTint(Color.clear)
@@ -39,10 +39,13 @@ struct Lessons: View {
             .listStyle(.plain)
             .navigationTitle("Lessons")
             .navigationBarTitleDisplayMode(.large)
+            .accessibility(identifier: "LesssonList")
             .onAppear(){
                 self.viewModel.fetchLessons()
             }
-        }.environmentObject(viewModel)
+        }
+        .environmentObject(viewModel)
+        .accessibility(identifier: "LesssonNavigationView")
     }
 }
 

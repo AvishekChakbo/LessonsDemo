@@ -34,8 +34,11 @@ struct LessonDetails: View {
                 else{
                     model.showNext = false
                 }
-            }.background(.black)
+            }
+            .background(.black)
+            .accessibility(identifier: "LessonDetailsBody")
         }
+        .accessibility(identifier: "LessonDetailsScrollView")
         .background(Color(.black))
         .if(lesson.fileExists() == false) { content in
             content.toolbar {
