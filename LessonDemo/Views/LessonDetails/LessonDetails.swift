@@ -44,23 +44,29 @@ struct LessonDetails: View {
             content.toolbar {
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button {
-                            viewModel.downloadVideo(lesson)
+                            if viewModel.isDownloading {
+                                viewModel.cancelDownload()
+                            }
+                            else{
+                                viewModel.downloadVideo(lesson)
+                            }
                         } label: {
                             HStack {
                                 if viewModel.isDownloading {
-                                    ProgressView().foregroundColor(.white).tint(.white).padding(8)
-                                    Button(action: {
-                                        viewModel.cancelDownload()
-                                    }) {
-                                        Text("Cancel")
-                                    }
+                                    ProgressView().foregroundColor(.white).tint(.white).padding(8).accessibility(identifier: "LessonProgressView")
+                                    Text("Cancel")
+//                                    Button(action: {
+//                                        viewModel.cancelDownload()
+//                                    }) {
+//                                        Text("Cancel")
+//                                    }
                                 }
                                 else{
                                     Image(systemName: "icloud.and.arrow.down")
                                     Text("Download")
                                 }
                             }
-                        }
+                        }.accessibility(identifier: "LessonDetailsDownload")
                     }
                 }
         }

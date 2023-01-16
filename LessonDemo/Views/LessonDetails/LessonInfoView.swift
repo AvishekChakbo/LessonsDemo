@@ -40,6 +40,7 @@ struct LessonInfoView: View {
                             .frame(width: 7, alignment: .center)
                             .foregroundColor(.blue)
                     }
+                    .accessibility(identifier: "LessonDetailsNextLesson")
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }

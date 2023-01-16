@@ -36,28 +36,42 @@ final class LessonDemoUITests: XCTestCase {
         let cell = list.descendants(matching: .button).firstMatch
         cell.tap()
         
-        let detailsScrollView = app.scrollViews["LessonDetailsScrollView"]
-        let _ = detailsScrollView.waitForExistence(timeout: 0.5)
-        XCTAssertTrue(detailsScrollView.exists)
+        details_screen_should_make_sure_all_required_controls_are_present()
         
+        details_screen_download_button_title_change_on_tap()
         
-        let lessonDetailsScreenNav = app.navigationBars["_TtGC7SwiftUI19UIHosting"]
-        XCTAssertTrue(lessonDetailsScreenNav.exists)
-        
-        let downloadButton = lessonDetailsScreenNav.buttons["Download"]
-        XCTAssertTrue(downloadButton.exists)
-        
-        downloadButton.tap()
-        
-        let cancelButton = lessonDetailsScreenNav.buttons["In progress"]
-        XCTAssertTrue(cancelButton.exists)
-        
-        let backButton = lessonDetailsScreenNav.buttons["Lessons"]
-        XCTAssertTrue(backButton.exists)
-        backButton.tap()
-        
-        let currentNav = app.navigationBars["Lessons"]
-        XCTAssertTrue(currentNav.exists)
+        should_go_back_to_lesson_list_screen_on_back_click()
                 
     }
+    
+    func details_screen_should_make_sure_all_required_controls_are_present(){
+        let detailsScrollView = app.scrollViews["LessonDetailsScrollView"]
+        let _ = detailsScrollView.waitForExistence(timeout: 2.0)
+        XCTAssertTrue(detailsScrollView.exists)
+        
+        let nextButton = app.buttons["LessonDetailsNextLesson"]
+        XCTAssertTrue(nextButton.exists)
+        
+        let downloadButton = app.buttons["LessonDetailsDownload"]
+        XCTAssertTrue(downloadButton.exists)
+        
+        let backButton = app.buttons["Lessons"]
+        XCTAssertTrue(backButton.exists)
+    }
+    
+    func details_screen_download_button_title_change_on_tap(){
+        let downloadButton = app.buttons["LessonDetailsDownload"]
+        XCTAssertEqual(downloadButton.label, "Download")
+        downloadButton.tap()
+        XCTAssertEqual(downloadButton.label, "In progress, Cancel")
+    }
+    
+    func should_go_back_to_lesson_list_screen_on_back_click(){
+        let backButton = app.buttons["Lessons"]
+        backButton.tap()
+        let currentScreen = app.navigationBars["Lessons"]
+        let _ = currentScreen.waitForExistence(timeout: 0.5)
+        XCTAssertTrue(currentScreen.exists)
+    }
+    
 }
